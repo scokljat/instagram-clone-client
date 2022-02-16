@@ -13,15 +13,13 @@ import {
 } from "@chakra-ui/react";
 
 function Signup() {
-  const [email, setEmail] = useState("");
+  const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const isInvalid = email === "" || password === "";
+  const isInvalid = userName === "" || password === "";
 
   const handleSignIn = (event) => {
     event.preventDefault();
-    console.log(email);
-    console.log(password);
   };
   return (
     <Grid templateColumns="repeat(2, 1fr)" marginTop={20}>
@@ -47,10 +45,10 @@ function Signup() {
               isRequired
               type="text"
               id="email"
-              value={email}
+              value={userName}
               placeholder="Phone number, username, or email"
               marginTop={10}
-              onChange={({ target }) => setEmail(target.value)}
+              onChange={({ target }) => setUserName(target.value)}
             />
           </FormControl>
           <FormControl>
