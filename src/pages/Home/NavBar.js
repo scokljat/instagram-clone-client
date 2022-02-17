@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { FiUser, FiPlus, FiHome } from "react-icons/fi";
+import { FiUser, FiPlus } from "react-icons/fi";
 import { Flex, List, ListItem } from "@chakra-ui/react";
 
 function NavBar() {

@@ -3,7 +3,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ChakraProvider } from "@chakra-ui/react";
 import axios from "axios";
 
-import SignUp from "./pages/Signup";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
 import Home from "./pages/Home/Home";
 import Profile from "./pages/Profile";
 import SideBar from "./mode/SideBar";
@@ -20,7 +21,8 @@ function App() {
         </header>
         <main>
           <Routes>
-            <Route path="/" element={<SignUp />} />
+            <Route path="/" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
             <Route path="/newpost" element={<NewPost />} />
             <Route path="/home" element={<Home />} />
             <Route path="/profile" element={<Profile />} />
