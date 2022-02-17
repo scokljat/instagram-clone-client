@@ -1,45 +1,30 @@
 import { useEffect, useState } from "react";
-import { ChakraProvider, extendTheme } from "@chakra-ui/react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { ChakraProvider } from "@chakra-ui/react";
 import axios from "axios";
 
-//import api from "./api";
-import SignUp from "./sign-up";
-
-const theme = extendTheme({
-  styles: {
-    global: {
-      body: {
-        bg: "#fafafa",
-      },
-    },
-  },
-});
+import SignUp from "./pages/Signup";
+import Home from "./pages/Home";
+import Profile from "./pages/Profile";
+import SideBar from "./mode/SideBar";
 
 function App() {
   //const [data, setData] = useState({ posts: [] });
 
-  useEffect(() => {
-    async function fetchData() {
-      const response = await axios.get(process.env.REACT_APP_API_URL);
-      console.log(response.data);
-
-      //   const result = await axios
-      //     .get(process.env.REACT_APP_API_URL)
-      //     .then((res) => {
-      //       console.log(res);
-      //       console.log(res.data);
-      //     });
-      //   //   setData(result.data);
-      //   console.log(result);
-      // }
-    }
-
-    fetchData();
-  }, []);
-
   return (
-    <ChakraProvider theme={theme}>
-      <SignUp />
+    <ChakraProvider>
+      <BrowserRouter>
+        <header>
+          <SideBar />
+        </header>
+        <main>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/profile" element={<Profile />} />
+          </Routes>
+        </main>
+      </BrowserRouter>
     </ChakraProvider>
   );
 }
