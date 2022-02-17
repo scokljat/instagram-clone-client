@@ -65,9 +65,10 @@ function Signup() {
                 <Button
                   height="1.75rem"
                   size="sm"
-                  onClick={() => setShowPassword(!showPassword)}
+                  onClick={() => {
+                    setShowPassword(!showPassword);
+                  }}
                 >
-                  {" "}
                   {showPassword ? "Hide" : "Show"}
                 </Button>
               </InputRightElement>
@@ -75,7 +76,6 @@ function Signup() {
           </FormControl>
           <FormControl>
             <Button colorScheme="blue" type="submit" disabled={isInvalid}>
-              {" "}
               Log In
             </Button>
           </FormControl>

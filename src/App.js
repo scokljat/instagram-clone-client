@@ -4,9 +4,10 @@ import { ChakraProvider } from "@chakra-ui/react";
 import axios from "axios";
 
 import SignUp from "./pages/Signup";
-import Home from "./pages/Home";
+import Home from "./pages/Home/Home";
 import Profile from "./pages/Profile";
 import SideBar from "./mode/SideBar";
+import NewPost from "./pages/NewPost";
 
 function App() {
   //const [data, setData] = useState({ posts: [] });
@@ -19,8 +20,9 @@ function App() {
         </header>
         <main>
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/signup" element={<SignUp />} />
+            <Route path="/" element={<SignUp />} />
+            <Route path="/newpost" element={<NewPost />} />
+            <Route path="/home" element={<Home />} />
             <Route path="/profile" element={<Profile />} />
           </Routes>
         </main>

@@ -1,7 +1,7 @@
 import SideBar from "./SideBar";
 
-function Profile() {
+function NewPost() {
   return <SideBar />;
 }
 
-export default Profile;
+export default NewPost;

@@ -1,4 +1,5 @@
 import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
+
 import Mode from "./Mode";
 
 function SideBar() {

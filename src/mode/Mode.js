@@ -3,6 +3,7 @@ import { FaSun, FaMoon } from "react-icons/fa";
 
 function Mode() {
   const { colorMode, toggleColorMode } = useColorMode();
+
   return (
     <VStack margin={5}>
       <IconButton
