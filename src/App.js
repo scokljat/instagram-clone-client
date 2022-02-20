@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ChakraProvider } from "@chakra-ui/react";
-import axios from "axios";
+
+import { getUsers } from "./actions/users";
 
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
@@ -12,6 +14,21 @@ import NewPost from "./pages/NewPost";
 
 function App() {
   //const [data, setData] = useState({ posts: [] });
+  const data = useSelector((state) => state);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const response = await axios(process.env.REACT_APP_API_URL);
+
+  //     setData(response.data);
+  //     console.log(data);
+  //   };
+  //   fetchData();
+  // }, []);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getUsers());
+  }, [dispatch]);
+  console.log(data);
 
   return (
     <ChakraProvider>
