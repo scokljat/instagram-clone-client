@@ -53,7 +53,7 @@ function Signup() {
           <FormControl>
             <Input
               {...register("firstName", {
-                required: "First name is required field",
+                required: "First name is required!",
                 minLength: {
                   value: 2,
                   message: "First name must be at least 2 charachters!",
@@ -72,7 +72,7 @@ function Signup() {
           <FormControl>
             <Input
               {...register("lastName", {
-                required: "Last name is required field",
+                required: "Last name is required!",
                 minLength: {
                   value: 2,
                   message: "Last name must be at least 2 charachters!",
@@ -91,7 +91,7 @@ function Signup() {
           <FormControl>
             <Input
               {...register("userName", {
-                required: "Username is required field",
+                required: "Username is required!",
                 minLength: {
                   value: 2,
                   message: "Username must be at least 2 charachters!",
@@ -112,7 +112,7 @@ function Signup() {
               <Input
                 type={showPassword ? "text" : "password"}
                 {...register("password", {
-                  required: "Password is required field",
+                  required: "Password is required!",
                   minLength: {
                     value: 5,
                     message: "Password must be at least 5 charachters!",

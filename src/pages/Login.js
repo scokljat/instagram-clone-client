@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useForm } from "react-hook-form";
 import { NavLink } from "react-router-dom";
 import {
   Stack,
@@ -14,14 +16,22 @@ import {
   Text,
 } from "@chakra-ui/react";
 
-function Login() {
-  const [userName, setUserName] = useState("");
-  const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
-  const isInvalid = userName === "" || password === "";
+import { loginUser } from "../actions/users";
 
-  const handleSignIn = (event) => {
-    event.preventDefault();
+function Login() {
+  const [showPassword, setShowPassword] = useState(false);
+  //const isInvalid = userName === "" || password === "";
+  const dispatch = useDispatch();
+
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = (values) => {
+    console.log(values);
+    dispatch(loginUser(values));
   };
   return (
     <Grid templateColumns="repeat(2, 1fr)" marginTop={20}>
@@ -30,7 +40,7 @@ function Login() {
           <Image src="/images/iphone-with-profile.jpg" alt="" />
         </Box>
       </Flex>
-      <form method="POST" onSubmit={handleSignIn}>
+      <form method="POST" onSubmit={handleSubmit(onSubmit)}>
         <Stack
           maxWidth={400}
           margin="auto"
@@ -44,24 +54,32 @@ function Login() {
 
           <FormControl>
             <Input
-              isRequired
-              type="text"
-              id="email"
-              value={userName}
-              placeholder="Phone number, username, or email"
+              type="email"
+              placeholder="Email"
+              {...register("email", {
+                required: "Email is required!",
+              })}
               marginTop={10}
-              onChange={({ target }) => setUserName(target.value)}
             />
+            {errors.email && <p>{errors.email.message}</p>}
           </FormControl>
           <FormControl>
             <InputGroup>
               <Input
                 isRequired
                 type={showPassword ? "text" : "password"}
-                id="password"
-                value={password}
                 placeholder="Password"
-                onChange={({ target }) => setPassword(target.value)}
+                {...register("password", {
+                  required: "Password is required!",
+                  minLength: {
+                    value: 5,
+                    message: "Password must be at least 5 charachters!",
+                  },
+                  maxLength: {
+                    value: 10,
+                    message: "Password must not exceed 10 characters!",
+                  },
+                })}
               />
               <InputRightElement width="4.5rem">
                 <Button
@@ -75,9 +93,10 @@ function Login() {
                 </Button>
               </InputRightElement>
             </InputGroup>
+            {errors.password && <p>{errors.password.message}</p>}
           </FormControl>
           <FormControl>
-            <Button colorScheme="blue" type="submit" disabled={isInvalid}>
+            <Button colorScheme="blue" type="submit">
               Log In
             </Button>
           </FormControl>

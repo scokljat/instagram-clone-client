@@ -6,11 +6,6 @@
       "src": "instagram-logo.png",
       "type": "image/png",
       "sizes": "16x16"
-    },
-    {
-      "src": "logo.png",
-      "type": "image/png",
-      "sizes": "512x512"
     }
   ],
   "start_url": ".",
