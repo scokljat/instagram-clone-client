@@ -1,8 +1,4 @@
-import {
-  FETCH_ALL_USERS,
-  REGISTER_USER,
-  LOGIN_USER,
-} from "../constants/actionTypes";
+import { FETCH_ALL_USERS, REGISTER_USER } from "../constants/actionTypes";
 
 const initialState = {
   users: [],
@@ -12,8 +8,6 @@ export const reducerUsers = (state = initialState, { type, payload }) => {
     case FETCH_ALL_USERS:
       return { ...state, users: payload };
     case REGISTER_USER:
-      return { ...state, users: payload };
-    case LOGIN_USER:
       return { ...state, users: payload };
     default:
       return state;

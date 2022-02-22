@@ -1,7 +1,9 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { NavLink } from "react-router-dom";
+
 import {
   Stack,
   Button,
@@ -16,10 +18,14 @@ import {
   Text,
 } from "@chakra-ui/react";
 
-import { loginUser } from "../actions/users";
+import { setLoginUser } from "../actions/login";
 
-function Login() {
+function Login(props) {
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
+
+  console.log("this is my", props.isLoggedIn);
+
   //const isInvalid = userName === "" || password === "";
   const dispatch = useDispatch();
 
@@ -30,8 +36,14 @@ function Login() {
   } = useForm();
 
   const onSubmit = (values) => {
-    console.log(values);
-    dispatch(loginUser(values));
+    console.log("moje vrijednosti", values);
+
+    dispatch(setLoginUser(values));
+
+    if (!props.isLoggedIn) {
+      console.log("before navigation", props.isLoggedIn);
+      navigate("/home");
+    }
   };
   return (
     <Grid templateColumns="repeat(2, 1fr)" marginTop={20}>
@@ -100,12 +112,14 @@ function Login() {
               Log In
             </Button>
           </FormControl>
-          <Text>Don't have an account?</Text>
-          <NavLink to="/signup">
-            <Text color="blue" fontWeight="bold">
-              Sign up
-            </Text>
-          </NavLink>
+          <Flex>
+            <Text>Don't have an account?</Text>
+            <NavLink to="/signup">
+              <Text color="blue" fontWeight="bold" paddingLeft={4}>
+                Sign up
+              </Text>
+            </NavLink>
+          </Flex>
         </Stack>
       </form>
     </Grid>

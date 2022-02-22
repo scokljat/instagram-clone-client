@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { NavLink } from "react-router-dom";
 import {
@@ -13,11 +13,15 @@ import {
 } from "@chakra-ui/react";
 
 import { registerUser } from "../actions/users";
+import { getUsers } from "../actions/users";
 
 function Signup() {
-  const [userData, setUserData] = useState({});
+  const users = useSelector((state) => state);
 
   const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getUsers());
+  }, [dispatch]);
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -28,11 +32,8 @@ function Signup() {
   } = useForm();
   const onSubmit = (values) => {
     dispatch(registerUser(values));
-
-    setUserData(values);
   };
 
-  console.log(userData);
   return (
     <Flex justifyContent="center" padding={10}>
       <Flex flexDirection="column">
@@ -48,7 +49,8 @@ function Signup() {
                 required: "Email is required!",
               })}
               marginBottom={5}
-            />
+            />{" "}
+            {errors.email && <p>{errors.email.message}</p>}
           </FormControl>
           <FormControl>
             <Input
@@ -152,12 +154,14 @@ function Signup() {
             </Button>
           </FormControl>
         </form>
-        <Text>Have an account?</Text>
-        <NavLink to="/">
-          <Text color="blue" fontWeight="bold">
-            Log in
-          </Text>
-        </NavLink>
+        <Flex>
+          <Text>Have an account?</Text>
+          <NavLink to="/">
+            <Text color="blue" fontWeight="bold" paddingLeft={4}>
+              Log in
+            </Text>
+          </NavLink>
+        </Flex>
       </Flex>
     </Flex>
   );

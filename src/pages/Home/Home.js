@@ -1,18 +1,38 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import NavBar from "./NavBar";
-
+import { Flex, Text, Image, Center } from "@chakra-ui/react";
+import { FaRegHeart } from "react-icons/fa";
 import { getPosts } from "../../actions/posts";
+import { getUsers } from "../../actions/users";
 
 function Home() {
   const posts = useSelector((state) => state);
-  const state = useSelector((state) => state.reducerPosts);
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getPosts());
+    dispatch(getUsers());
   }, [dispatch]);
   console.log(posts);
-  return <NavBar />;
+  return (
+    <>
+      <NavBar />
+      {posts.reducerPosts.posts.map((post) => {
+        return (
+          <Flex justifyContent="center">
+            <Flex flexDirection="column">
+              <Text>{post.user.userName}</Text>
+              <Text>{post.createdAt}</Text>
+              <Image boxSize="500px" src={post.url} />
+              <Text>{post.description}</Text>
+              <FaRegHeart />
+            </Flex>
+          </Flex>
+        );
+      })}
+    </>
+  );
 }
 
 export default Home;
