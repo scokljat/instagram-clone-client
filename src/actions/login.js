@@ -1,11 +1,14 @@
 import * as api from "../api/api";
 
-import { LOGIN_USER } from "../constants/actionTypes";
+import { LOGIN_USER, LOGIN } from "../constants/actionTypes";
 
-export const isLogin = (isLoggedIn) => ({
-  type: "LOGIN",
-  payload: isLoggedIn,
-});
+export const isLogin = (isLoggedIn) => async (dispatch) => {
+  try {
+    dispatch({ type: LOGIN, payload: isLoggedIn });
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 export const setLoginUser = (user) => async (dispatch) => {
   try {

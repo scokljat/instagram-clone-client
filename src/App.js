@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ChakraProvider } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,6 +10,8 @@ import SideBar from "./mode/SideBar";
 import NewPost from "./pages/NewPost";
 
 import { isLogin } from "./actions/login";
+import { getUsers } from "./actions/users";
+import { getPosts } from "./actions/posts";
 function App() {
   //const [data, setData] = useState({ posts: [] });
   //const data = useSelector((state) => state);
@@ -22,12 +24,25 @@ function App() {
   //   };
   //   fetchData();
   // }, []);
-  const users = useSelector((state) => state);
+  //const users = useSelector((state) => state);
+  //const [novo, setNovo] = useState();
+  // const dispatch = useDispatch();
+
+  // useEffect(() => {
+  //   //// dispatch(getUsers());
+  //   // dispatch(getPosts());
+  //   dispatch(isLogin());
+  // }, [dispatch]);
+  // console.log("KOrisnik ", users.loginReducer.isLoggedIn);
+  // setNovo(users.loginReducer.isLoggedIn);
   const dispatch = useDispatch();
+  const users = useSelector((state) => state);
   useEffect(() => {
+    //// dispatch(getUsers());
+    // dispatch(getPosts());
     dispatch(isLogin());
   }, [dispatch]);
-  console.log("App jss", users.loginReducer.isLoggedIn);
+  console.log(users.loginReducer.isLoggedIn);
 
   return (
     <ChakraProvider>
@@ -38,13 +53,9 @@ function App() {
         <main>
           <Routes>
             {users.loginReducer.isLoggedIn ? (
-              <Route path="/home" element={<Home />} />
+              <Route path="/" element={<Home />} />
             ) : (
-              <Route
-                exact
-                path="/"
-                element={<Login isLoggedIn={users.loginReducer.isLoggedIn} />}
-              />
+              <Route exact path="/" element={<Login />} />
             )}
 
             <Route path="/signup" element={<Signup />} />

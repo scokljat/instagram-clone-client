@@ -19,16 +19,16 @@ import {
 } from "@chakra-ui/react";
 
 import { setLoginUser } from "../actions/login";
+import { isLogin } from "../actions/login";
 
-function Login(props) {
+function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
-  console.log("this is my", props.isLoggedIn);
+  // console.log("this is my", props.isLoggedIn);
 
   //const isInvalid = userName === "" || password === "";
   const dispatch = useDispatch();
-
   const {
     handleSubmit,
     register,
@@ -36,14 +36,14 @@ function Login(props) {
   } = useForm();
 
   const onSubmit = (values) => {
-    console.log("moje vrijednosti", values);
+    // console.log("moje vrijednosti", values);
 
     dispatch(setLoginUser(values));
 
-    if (!props.isLoggedIn) {
-      console.log("before navigation", props.isLoggedIn);
-      navigate("/home");
-    }
+    // if (users.loginReducer.isLoggedIn) {
+    //   //   //  console.log("before navigation", props.isLoggedIn);
+    //   navigate("/home");
+    // }
   };
   return (
     <Grid templateColumns="repeat(2, 1fr)" marginTop={20}>
