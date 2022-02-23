@@ -9,6 +9,7 @@ export const loginReducer = (state = initialState, { type, payload }) => {
     window.localStorage.setItem("token", payload);
     console.log("I am in login ", payload);
   }
+  if (window.localStorage.getItem("token")) state.isLoggedIn = true;
   switch (type) {
     case LOGIN_USER:
       return {
