@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
 import { NavLink } from "react-router-dom";
 import {
@@ -17,6 +18,7 @@ import { getUsers } from "../actions/users";
 
 function Signup() {
   const users = useSelector((state) => state);
+  const nav = useNavigate();
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -32,6 +34,7 @@ function Signup() {
   } = useForm();
   const onSubmit = (values) => {
     dispatch(registerUser(values));
+    nav("/profile");
   };
 
   return (

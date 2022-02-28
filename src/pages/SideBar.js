@@ -5,7 +5,7 @@ import { Flex } from "@chakra-ui/react";
 function SideBar() {
   return (
     <Flex justifyContent="flex-end" marginRight={8}>
-      <NavLink to="/home">
+      <NavLink to="/">
         <FiHome size={30} />
       </NavLink>
     </Flex>

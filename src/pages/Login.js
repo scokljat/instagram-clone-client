@@ -23,9 +23,6 @@ import { isLogin } from "../actions/login";
 
 function Login() {
   const [showPassword, setShowPassword] = useState(false);
-  const navigate = useNavigate();
-
-  // console.log("this is my", props.isLoggedIn);
 
   //const isInvalid = userName === "" || password === "";
   const dispatch = useDispatch();
@@ -36,14 +33,7 @@ function Login() {
   } = useForm();
 
   const onSubmit = (values) => {
-    // console.log("moje vrijednosti", values);
-
     dispatch(setLoginUser(values));
-
-    // if (users.loginReducer.isLoggedIn) {
-    //   //   //  console.log("before navigation", props.isLoggedIn);
-    //   navigate("/home");
-    // }
   };
   return (
     <Grid templateColumns="repeat(2, 1fr)" marginTop={20}>
