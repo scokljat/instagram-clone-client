@@ -1,4 +1,4 @@
-import { FETCH_ALL_POSTS } from "../constants/actionTypes";
+import { FETCH_POSTS } from "../constants/actionTypes";
 
 const initialState = {
   posts: [],
@@ -6,7 +6,7 @@ const initialState = {
 
 export const reducerPosts = (state = initialState, { type, payload }) => {
   switch (type) {
-    case FETCH_ALL_POSTS:
+    case FETCH_POSTS:
       return { ...state, posts: payload };
 
     default:

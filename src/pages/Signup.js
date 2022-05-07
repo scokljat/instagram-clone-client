@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
@@ -13,17 +13,13 @@ import {
   Flex,
 } from "@chakra-ui/react";
 
-import { registerUser } from "../actions/users";
-import { getUsers } from "../actions/users";
+import { registerUser } from "../actions/auth";
 
 function Signup() {
   const users = useSelector((state) => state);
   const nav = useNavigate();
 
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getUsers());
-  }, [dispatch]);
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -34,7 +30,7 @@ function Signup() {
   } = useForm();
   const onSubmit = (values) => {
     dispatch(registerUser(values));
-    nav("/profile");
+    if (users.authReducer.isLoggedIn) nav("/profile");
   };
 
   return (

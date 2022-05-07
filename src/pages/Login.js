@@ -1,9 +1,7 @@
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router";
-import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { NavLink } from "react-router-dom";
-
 import {
   Stack,
   Button,
@@ -18,13 +16,13 @@ import {
   Text,
 } from "@chakra-ui/react";
 
-import { setLoginUser } from "../actions/login";
-import { isLogin } from "../actions/login";
+import { login } from "../actions/auth";
 
 function Login() {
   const [showPassword, setShowPassword] = useState(false);
 
   //const isInvalid = userName === "" || password === "";
+
   const dispatch = useDispatch();
   const {
     handleSubmit,
@@ -33,8 +31,9 @@ function Login() {
   } = useForm();
 
   const onSubmit = (values) => {
-    dispatch(setLoginUser(values));
+    dispatch(login(values));
   };
+
   return (
     <Grid templateColumns="repeat(2, 1fr)" marginTop={20}>
       <Flex justifyContent="center">

@@ -1,6 +1,4 @@
-export const FETCH_ALL_USERS = "FETCH_ALL_USERS";
-export const REGISTER_USER = "REGISTER_USER";
-export const LOGIN_USER = "LOGIN_USER";
-export const LOGOUT_USER = "LOGOUT_USER";
-export const FETCH_ALL_POSTS = "FETCH_ALL_POSTS";
+export const REGISTER = "REGISTER";
 export const LOGIN = "LOGIN";
+export const LOGOUT = "LOGOUT";
+export const FETCH_POSTS = "FETCH_POSTS";

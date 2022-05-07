@@ -1,21 +1,28 @@
 import { NavLink } from "react-router-dom";
-import { FiUser, FiPlus } from "react-icons/fi";
+import { FiUser, FiHome } from "react-icons/fi";
 import { Flex, List, ListItem } from "@chakra-ui/react";
 
-function NavBar() {
+import ModalCreatePost from "./ModalCreatePost";
+
+function TheNavbar() {
   return (
     <Flex justifyContent="center">
       <List>
         <Flex>
           <ListItem paddingRight={10}>
-            <NavLink to="/newpost">
-              <FiPlus size={30} />
+            <ModalCreatePost />
+          </ListItem>
+
+          <ListItem paddingRight={10}>
+            <NavLink to="/profile">
+              <FiUser size={30} />
             </NavLink>
           </ListItem>
 
           <ListItem>
-            <NavLink to="/profile">
-              <FiUser size={30} />
+            {" "}
+            <NavLink to="/">
+              <FiHome size={30} />
             </NavLink>
           </ListItem>
         </Flex>
@@ -24,4 +31,4 @@ function NavBar() {
   );
 }
 
-export default NavBar;
+export default TheNavbar;
