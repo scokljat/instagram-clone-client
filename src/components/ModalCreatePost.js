@@ -40,11 +40,6 @@ function ModalCreatePost() {
         url: values.url,
       })
     );
-    console.log({
-      userId: token.id,
-      description: values.description,
-      url: values.url,
-    });
   };
 
   return (
