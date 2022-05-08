@@ -4,6 +4,7 @@ import { Flex, Text, Image } from "@chakra-ui/react";
 import { FaRegHeart } from "react-icons/fa";
 
 import { getPosts } from "../actions/posts";
+import FormatUtils from "../utils/FormatUtils";
 
 function Home() {
   const posts = useSelector((state) => state);
@@ -21,9 +22,11 @@ function Home() {
           <Flex justifyContent="center">
             <Flex flexDirection="column" key={post.id}>
               <Text>{post.user.userName}</Text>
-              <Text>{post.createdAt}</Text>
               <Image boxSize="500px" src={post.url} />
               <Text>{post.description}</Text>
+              <Text>
+                {FormatUtils.formatDate(post.createdAt, "HH:mm dd MMM yyyy")}
+              </Text>
               <FaRegHeart />
             </Flex>
           </Flex>
