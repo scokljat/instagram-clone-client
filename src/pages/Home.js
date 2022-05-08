@@ -7,12 +7,13 @@ import { getPosts } from "../actions/posts";
 
 function Home() {
   const posts = useSelector((state) => state);
+  const user = useSelector((state) => state);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getPosts());
   }, [dispatch]);
-
+  console.log(user.authReducer.userId);
   return (
     <>
       {posts.reducerPosts.posts.map((post) => {

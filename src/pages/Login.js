@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { NavLink } from "react-router-dom";
 import {
@@ -20,6 +20,7 @@ import { login } from "../actions/auth";
 
 function Login() {
   const [showPassword, setShowPassword] = useState(false);
+  const users = useSelector((state) => state);
 
   //const isInvalid = userName === "" || password === "";
 
@@ -32,6 +33,7 @@ function Login() {
 
   const onSubmit = (values) => {
     dispatch(login(values));
+    console.log(users.authReducer.userId);
   };
 
   return (

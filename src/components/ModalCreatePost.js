@@ -1,3 +1,6 @@
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import jwtDecode from "jwt-decode";
 import { useForm } from "react-hook-form";
 import {
   Modal,
@@ -13,17 +16,37 @@ import {
   FormControl,
 } from "@chakra-ui/react";
 import { FiPlus } from "react-icons/fi";
+import { createPost } from "../actions/posts";
 
 function ModalCreatePost() {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
+  const dispatch = useDispatch();
   const {
     handleSubmit,
     register,
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (values) => {};
+  const onSubmit = (values) => {
+    console.log(values);
+    const token = jwtDecode(localStorage.getItem("token"));
+    console.log(token);
+
+    dispatch(
+      createPost({
+        userId: token.id,
+        description: values.description,
+        url: values.url,
+      })
+    );
+    console.log({
+      userId: token.id,
+      description: values.description,
+      url: values.url,
+    });
+  };
+
   return (
     <>
       <FiPlus size={30} onClick={onOpen} />
