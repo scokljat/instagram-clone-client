@@ -7,7 +7,10 @@ export const registerUser = (user) => async (dispatch) => {
     const { data } = await api.register(user);
 
     localStorage.setItem("token", data);
-    dispatch({ type: REGISTER, payload: data });
+
+    const decoded = jwtDecode(data);
+    //console.log(decoded.id);
+    dispatch({ type: REGISTER, payload: { data: data, decoded: decoded.id } });
   } catch (error) {
     console.log(error);
   }
@@ -18,6 +21,7 @@ export const login = (user) => async (dispatch) => {
     const { data } = await api.login(user);
 
     localStorage.setItem("token", data);
+
     const decoded = jwtDecode(data);
     // console.log(decoded.id);
     dispatch({ type: LOGIN, payload: { data: data, decoded: decoded.id } });

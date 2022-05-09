@@ -5,7 +5,6 @@ const initialState = {
 };
 
 export const reducerPosts = (state = initialState, { type, payload }) => {
-  console.log(payload);
   switch (type) {
     case FETCH_POSTS:
       return { ...state, posts: payload };

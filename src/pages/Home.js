@@ -7,20 +7,20 @@ import { getPosts } from "../actions/posts";
 import FormatUtils from "../utils/FormatUtils";
 
 function Home() {
-  const posts = useSelector((state) => state);
-  const user = useSelector((state) => state);
+  const posts = useSelector((state) => state.reducerPosts.posts);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getPosts());
   }, [dispatch]);
-  console.log(user.authReducer.userId);
+
   return (
     <>
-      {posts.reducerPosts.posts.map((post) => {
+      {posts.map((post, index) => {
         return (
           <Flex justifyContent="center">
-            <Flex flexDirection="column" key={post.id}>
+            <Flex flexDirection="column" key={index}>
               <Text>{post.user.userName}</Text>
               <Image boxSize="500px" src={post.url} />
               <Text>{post.description}</Text>
