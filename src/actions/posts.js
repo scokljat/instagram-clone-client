@@ -1,10 +1,23 @@
 import * as api from "../api/api";
-import { CREATE_POST, FETCH_POSTS } from "../constants/actionTypes";
+import {
+  CREATE_POST,
+  FETCH_POSTS,
+  FETCH_USER_POSTS,
+} from "../constants/actionTypes";
 
 export const getPosts = () => async (dispatch) => {
   try {
     const { data } = await api.getPosts();
     dispatch({ type: FETCH_POSTS, payload: data.posts });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getPostsByUser = (id) => async (dispatch) => {
+  try {
+    const { data } = await api.getPostsByUser(id);
+    dispatch({ type: FETCH_USER_POSTS, payload: data });
   } catch (error) {
     console.log(error);
   }

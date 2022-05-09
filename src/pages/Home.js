@@ -20,14 +20,14 @@ function Home() {
       {posts.map((post, index) => {
         return (
           <Flex justifyContent="center">
-            <Flex flexDirection="column" key={index}>
-              <Text>{post.user.userName}</Text>
+            <Flex flexDirection="column" key={index} mt={10}>
+              <Text mb={3}>{post.user.userName}</Text>
               <Image boxSize="500px" src={post.url} />
-              <Text>{post.description}</Text>
-              <Text>
+              <Text mb={1}>{post.description}</Text>
+              <Text mb={3}>
                 {FormatUtils.formatDate(post.createdAt, "HH:mm dd MMM yyyy")}
               </Text>
-              <FaRegHeart />
+              <FaRegHeart fontSize={20} />
             </Flex>
           </Flex>
         );
