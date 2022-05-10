@@ -26,6 +26,7 @@ function ModalCreatePost() {
     handleSubmit,
     register,
     formState: { errors },
+    reset,
   } = useForm();
 
   const onSubmit = (values) => {
@@ -40,6 +41,7 @@ function ModalCreatePost() {
         url: values.url,
       })
     );
+    reset();
   };
 
   return (
@@ -82,7 +84,13 @@ function ModalCreatePost() {
               </FormControl>
 
               <ModalFooter>
-                <Button colorScheme="blue" type="submit" ml={60} mr={3}>
+                <Button
+                  colorScheme="blue"
+                  type="submit"
+                  ml={60}
+                  mr={3}
+                  onClick={onClose}
+                >
                   Share
                 </Button>
                 <Button colorScheme="blue" onClick={onClose}>
