@@ -6,5 +6,6 @@ export const register = (newUser) => axios.post(`${url}/register`, newUser);
 export const login = (user) => axios.post(`${url}/login`, user);
 export const getUser = (id) => axios.get(`${url}/users/${id}`, id);
 
-export const getPosts = () => axios.get(url);
-export const createPost = (newPost) => axios.post(url, newPost);
+export const getPosts = () => axios.get(`${url}/posts`);
+export const createPost = (newPost) => axios.post(`${url}/posts`, newPost);
+export const deletePost = (id) => axios.delete(`${url}/posts/${id}`, id);

@@ -14,7 +14,7 @@ function Home() {
   useEffect(() => {
     dispatch(getPosts());
   }, [dispatch]);
-
+  console.log(posts);
   return (
     <>
       {posts.map((post, index) => {
@@ -25,7 +25,10 @@ function Home() {
               <Image boxSize="500px" src={post.url} />
               <Text mb={1}>{post.description}</Text>
               <Text mb={3}>
-                {FormatUtils.formatDate(post.createdAt, "HH:mm dd MMM yyyy")}
+                {FormatUtils.formatDate(
+                  post.createdAt,
+                  "HH:mm  'h' dd MMM yyyy"
+                )}
               </Text>
               <FaRegHeart fontSize={20} />
             </Flex>
