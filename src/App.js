@@ -14,6 +14,7 @@ import Signup from "./pages/Signup";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import { logout } from "./actions/auth";
+import EditProfile from "./pages/EditProfile";
 
 function App() {
   const dispatch = useDispatch();
@@ -53,6 +54,7 @@ function App() {
             <Route path="/signup" element={<Signup />} />
 
             <Route path="/profile" element={<Profile />} />
+            <Route path="/edit-profile" element={<EditProfile />} />
           </Routes>
         </main>
       </BrowserRouter>
