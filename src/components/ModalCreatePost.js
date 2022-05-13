@@ -1,5 +1,4 @@
-import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import jwtDecode from "jwt-decode";
 import { useForm } from "react-hook-form";
 import {
@@ -30,9 +29,7 @@ function ModalCreatePost() {
   } = useForm();
 
   const onSubmit = (values) => {
-    console.log(values);
     const token = jwtDecode(localStorage.getItem("token"));
-    console.log(token);
 
     dispatch(
       createPost({
@@ -47,11 +44,10 @@ function ModalCreatePost() {
   return (
     <>
       <FiPlus size={30} onClick={onOpen} />
-
       <Modal isOpen={isOpen} onClose={onClose} background="#F9F3EE">
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader color="black">Create a new post</ModalHeader>
+          <ModalHeader>Create a new post</ModalHeader>
           <ModalCloseButton color="black" />
           <ModalBody>
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -82,7 +78,6 @@ function ModalCreatePost() {
                   marginBottom={5}
                 />
               </FormControl>
-
               <ModalFooter>
                 <Button
                   colorScheme="blue"
