@@ -1,7 +1,8 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
 import { SimpleGrid, Text, Flex, Image, Button } from "@chakra-ui/react";
-import { DeleteIcon } from "@chakra-ui/icons";
+import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import jwtDecode from "jwt-decode";
 import { getUser } from "../actions/users";
 import { getPosts, deletePost } from "../actions/posts";
@@ -21,7 +22,12 @@ function Profile() {
   return (
     <>
       <Flex ml={20} mt={10}>
-        <Image boxSize="100px" src={user.image} borderRadius={50} />
+        <Flex flexDirection="column">
+          <Image boxSize="100px" src={user.image} borderRadius={50} />
+          <NavLink to="/edit-profile">
+            <Button mt={5}>Edit profile</Button>
+          </NavLink>
+        </Flex>
         <Flex flexDirection="column" ml={10}>
           <Text
             textTransform="uppercase"
@@ -35,12 +41,12 @@ function Profile() {
         </Flex>
       </Flex>
       <Flex flexDirection="row" justifyContent="center" m={20}>
-        <SimpleGrid columns={5}>
+        <SimpleGrid columns={{ sm: "2", md: "3", lg: "5" }} spacing={10}>
           {posts?.map((post, index) => {
             return (
               <>
                 {post.userId === token.id ? (
-                  <Flex flexDirection="column" mr={10} key={index}>
+                  <Flex flexDirection="column" key={index}>
                     <Image height="350px" widht="300px" src={post.url} />
                     <Flex justifyContent="space-between">
                       <Flex flexDirection="column">
@@ -52,8 +58,12 @@ function Profile() {
                           )}
                         </Text>
                       </Flex>
+                      <Button mt={3} mr={1} ml={1} p={2}>
+                        <EditIcon />
+                      </Button>
                       <Button
                         mt={3}
+                        p={2}
                         onClick={() => {
                           dispatch(deletePost(post.id));
                         }}
