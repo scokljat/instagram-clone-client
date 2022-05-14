@@ -1,5 +1,4 @@
 import { useDispatch } from "react-redux";
-import jwtDecode from "jwt-decode";
 import { useForm } from "react-hook-form";
 import {
   Modal,
@@ -13,14 +12,18 @@ import {
   Button,
   Input,
   FormControl,
+  Text,
 } from "@chakra-ui/react";
 import { FiPlus } from "react-icons/fi";
+
 import { createPost } from "../actions/posts";
+import FormatUtils from "../utils/FormatUtils";
 
 function ModalCreatePost() {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const dispatch = useDispatch();
+
   const {
     handleSubmit,
     register,
@@ -29,11 +32,9 @@ function ModalCreatePost() {
   } = useForm();
 
   const onSubmit = (values) => {
-    const token = jwtDecode(localStorage.getItem("token"));
-
     dispatch(
       createPost({
-        userId: token.id,
+        userId: FormatUtils.formatToken(),
         description: values.description,
         url: values.url,
       })
@@ -48,34 +49,36 @@ function ModalCreatePost() {
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Create a new post</ModalHeader>
-          <ModalCloseButton color="black" />
+          <ModalCloseButton />
           <ModalBody>
             <form onSubmit={handleSubmit(onSubmit)}>
               <FormControl>
                 <Input
-                  color="black"
                   _placeholder={{ color: "#D1D1D1" }}
                   borderColor="#D1D1D1"
                   placeholder="Description"
                   type="text"
                   {...register("description", {
+                    required: "Description is required!",
                     maxLength: {
                       value: 50,
                       message: "Description must not exceed 50 characters!",
                     },
                   })}
-                  marginBottom={5}
+                  mb={5}
                 />
-                {errors.description && <p>{errors.description.message}</p>}
+                {errors.description && (
+                  <Text p={5}>{errors.description.message}</Text>
+                )}
               </FormControl>
               <FormControl>
                 <Input
-                  color="black"
+                  isRequired
                   _placeholder={{ color: "#D1D1D1" }}
                   borderColor="#D1D1D1"
                   {...register("url")}
                   placeholder="Image URL"
-                  marginBottom={5}
+                  mb={5}
                 />
               </FormControl>
               <ModalFooter>
@@ -84,11 +87,19 @@ function ModalCreatePost() {
                   type="submit"
                   ml={60}
                   mr={3}
-                  onClick={onClose}
+                  onClick={() => {
+                    onClose();
+                  }}
                 >
                   Share
                 </Button>
-                <Button colorScheme="blue" onClick={onClose}>
+                <Button
+                  colorScheme="blue"
+                  onClick={() => {
+                    onClose();
+                    reset();
+                  }}
+                >
                   Close
                 </Button>
               </ModalFooter>
