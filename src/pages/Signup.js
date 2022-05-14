@@ -16,30 +16,39 @@ import {
 import { registerUser } from "../actions/auth";
 
 function Signup() {
+  const [showPassword, setShowPassword] = useState(false);
   const users = useSelector((state) => state);
   const nav = useNavigate();
 
   const dispatch = useDispatch();
 
-  const [showPassword, setShowPassword] = useState(false);
-
   const {
     handleSubmit,
     register,
     formState: { errors },
+    watch,
   } = useForm();
+
+  const isInvalid =
+    watch("email", false) &&
+    watch("firstName", false) &&
+    watch("lastName", false) &&
+    watch("userName", false) &&
+    watch("password", false);
+
   const onSubmit = (values) => {
     dispatch(registerUser(values));
     if (users.authReducer.isLoggedIn) nav("/profile");
   };
 
   return (
-    <Flex justifyContent="center" padding={10}>
-      <Flex flexDirection="column">
-        <Text marginBottom={5}>
-          Sign up to see photos and videos from your friends.
-        </Text>
-        <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <Flex justifyContent="center">
+        <Flex flexDirection="column" alignItems="center">
+          <Text as="i" fontSize={60}>
+            Instagram
+          </Text>
+          <Text m={5}>Sign up to see photos and videos from your friends.</Text>
           <FormControl>
             <Input
               placeholder="Email"
@@ -47,9 +56,9 @@ function Signup() {
               {...register("email", {
                 required: "Email is required!",
               })}
-              marginBottom={5}
+              mb={5}
             />{" "}
-            {errors.email && <p>{errors.email.message}</p>}
+            {errors.email && <Text pb={5}>{errors.email.message}</Text>}
           </FormControl>
           <FormControl>
             <Input
@@ -60,15 +69,15 @@ function Signup() {
                   message: "First name must be at least 2 charachters!",
                 },
                 maxLength: {
-                  value: 10,
-                  message: "First name must not exceed 10 characters!",
+                  value: 20,
+                  message: "First name must not exceed 20 characters!",
                 },
               })}
               type="text"
               placeholder="First Name"
-              marginBottom={5}
+              mb={5}
             />
-            {errors.firstName && <p>{errors.firstName.message}</p>}
+            {errors.firstName && <Text pb={5}>{errors.firstName.message}</Text>}
           </FormControl>
           <FormControl>
             <Input
@@ -79,15 +88,15 @@ function Signup() {
                   message: "Last name must be at least 2 charachters!",
                 },
                 maxLength: {
-                  value: 10,
-                  message: "Last name must not exceed 10 characters!",
+                  value: 20,
+                  message: "Last name must not exceed 20 characters!",
                 },
               })}
               type="text"
               placeholder="Last Name"
-              marginBottom={5}
+              mb={5}
             />
-            {errors.lastName && <p>{errors.lastName.message}</p>}
+            {errors.lastName && <Text pb={5}>{errors.lastName.message}</Text>}
           </FormControl>
           <FormControl>
             <Input
@@ -98,15 +107,15 @@ function Signup() {
                   message: "Username must be at least 2 charachters!",
                 },
                 maxLength: {
-                  value: 10,
-                  message: "Username must not exceed 10 characters!",
+                  value: 20,
+                  message: "Username must not exceed 20 characters!",
                 },
               })}
               type="text"
               placeholder="Username"
-              marginBottom={5}
+              mb={5}
             />
-            {errors.userName && <p>{errors.userName.message}</p>}
+            {errors.userName && <Text pb={5}>{errors.userName.message}</Text>}
           </FormControl>
           <FormControl>
             <InputGroup>
@@ -119,12 +128,12 @@ function Signup() {
                     message: "Password must be at least 5 charachters!",
                   },
                   maxLength: {
-                    value: 10,
-                    message: "Password must not exceed 10 characters!",
+                    value: 20,
+                    message: "Password must not exceed 20 characters!",
                   },
                 })}
                 placeholder="Password"
-                marginBottom={5}
+                mb={5}
               />
               <InputRightElement width="4.5rem">
                 <Button
@@ -138,31 +147,22 @@ function Signup() {
                 </Button>
               </InputRightElement>
             </InputGroup>
-
-            {errors.password && <p>{errors.password.message}</p>}
+            {errors.password && <Text pb={5}>{errors.password.message}</Text>}
           </FormControl>
-
-          <FormControl>
-            <Button
-              colorScheme="blue"
-              type="submit"
-              //  disabled={isInvalid}
-              marginBottom={5}
-            >
-              Sign up
-            </Button>
-          </FormControl>
-        </form>
-        <Flex>
-          <Text>Have an account?</Text>
-          <NavLink to="/">
-            <Text color="blue" fontWeight="bold" paddingLeft={4}>
-              Log in
-            </Text>
-          </NavLink>
+          <Button colorScheme="blue" type="submit" disabled={!isInvalid} mb={5}>
+            Sign up
+          </Button>
+          <Flex>
+            <Text>Have an account?</Text>
+            <NavLink to="/">
+              <Text color="#3182ce" fW="bold" pl={4}>
+                Log in
+              </Text>
+            </NavLink>
+          </Flex>
         </Flex>
       </Flex>
-    </Flex>
+    </form>
   );
 }
 
