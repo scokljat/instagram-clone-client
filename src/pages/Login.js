@@ -22,14 +22,15 @@ function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const users = useSelector((state) => state);
 
-  //const isInvalid = userName === "" || password === "";
-
   const dispatch = useDispatch();
   const {
     handleSubmit,
     register,
     formState: { errors },
+    watch,
   } = useForm();
+
+  const isInvalid = watch("email", false) && watch("password", false);
 
   const onSubmit = (values) => {
     dispatch(login(values));
@@ -40,7 +41,7 @@ function Login() {
     <Grid templateColumns="repeat(2, 1fr)" marginTop={20}>
       <Flex justifyContent="center">
         <Box boxSize="sm">
-          <Image src="/images/iphone-with-profile.jpg" alt="" />
+          <Image src="/images/instagram-login.jpg" alt="" borderRadius={5} />
         </Box>
       </Flex>
       <form method="POST" onSubmit={handleSubmit(onSubmit)}>
@@ -48,13 +49,13 @@ function Login() {
           maxWidth={400}
           margin="auto"
           spacing={5}
-          marginTop={10}
+          marginTop={5}
           marginStart={10}
+          alignItems="center"
         >
-          <Box boxSize="sm" height={10}>
-            <Image src="/images/logo.png" alt="" />
-          </Box>
-
+          <Text as="i" fontSize={60}>
+            Instagram
+          </Text>
           <FormControl>
             <Input
               type="email"
@@ -98,15 +99,20 @@ function Login() {
             </InputGroup>
             {errors.password && <p>{errors.password.message}</p>}
           </FormControl>
-          <FormControl>
-            <Button colorScheme="blue" type="submit">
-              Log In
-            </Button>
-          </FormControl>
+
+          <Button
+            disabled={!isInvalid}
+            colorScheme="blue"
+            type="submit"
+            alignItems="center"
+          >
+            Log In
+          </Button>
+
           <Flex>
             <Text>Don't have an account?</Text>
             <NavLink to="/signup">
-              <Text color="blue" fontWeight="bold" paddingLeft={4}>
+              <Text color="#3182ce" fontWeight="bold" paddingLeft={4}>
                 Sign up
               </Text>
             </NavLink>
