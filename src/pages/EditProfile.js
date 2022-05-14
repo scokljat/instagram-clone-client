@@ -10,19 +10,20 @@ import {
   Text,
   Flex,
 } from "@chakra-ui/react";
+
 import { getUser, updateUser } from "../actions/users";
-import jwtDecode from "jwt-decode";
+import FormatUtils from "../utils/FormatUtils";
 
 function EditProfile() {
   const [showPassword, setShowPassword] = useState(false);
   const user = useSelector((state) => state.reducerUsers.user);
 
   const dispatch = useDispatch();
-  const token = jwtDecode(localStorage.getItem("token"));
+  const userId = FormatUtils.formatToken();
 
   useEffect(() => {
-    dispatch(getUser(token.id));
-  }, [token.id, dispatch]);
+    dispatch(getUser(userId));
+  }, [userId, dispatch]);
 
   const {
     handleSubmit,
@@ -40,16 +41,13 @@ function EditProfile() {
   });
 
   const onSubmit = (values) => {
-    dispatch(updateUser(values, token.id));
+    dispatch(updateUser(values, userId));
   };
 
   return (
-    <Flex justifyContent="center" padding={30}>
+    <Flex justifyContent="center" p={30}>
       <Flex flexDirection="column" alignItems="center">
-        <Text
-          marginBottom={5}
-          fontSize={{ base: "20px", md: "25px", lg: "40px" }}
-        >
+        <Text mb={5} fontSize={{ base: "20px", md: "25px", lg: "40px" }}>
           Edit account information
         </Text>
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -58,7 +56,7 @@ function EditProfile() {
             borderColor="#D1D1D1"
             {...register("image")}
             placeholder="Image URL"
-            marginBottom={5}
+            mb={5}
           />
           <FormControl>
             <Input
@@ -80,8 +78,8 @@ function EditProfile() {
                   message: "First name must be at least 2 charachters!",
                 },
                 maxLength: {
-                  value: 10,
-                  message: "First name must not exceed 10 characters!",
+                  value: 20,
+                  message: "First name must not exceed 20 characters!",
                 },
               })}
               type="text"
@@ -99,13 +97,13 @@ function EditProfile() {
                   message: "Last name must be at least 2 charachters!",
                 },
                 maxLength: {
-                  value: 10,
-                  message: "Last name must not exceed 10 characters!",
+                  value: 20,
+                  message: "Last name must not exceed 20 characters!",
                 },
               })}
               type="text"
               placeholder="Last Name"
-              marginBottom={5}
+              mb={5}
             />
             {errors.lastName && <Text pb={5}>{errors.lastName.message}</Text>}
           </FormControl>
@@ -118,13 +116,13 @@ function EditProfile() {
                   message: "Username must be at least 2 charachters!",
                 },
                 maxLength: {
-                  value: 10,
-                  message: "Username must not exceed 10 characters!",
+                  value: 20,
+                  message: "Username must not exceed 20 characters!",
                 },
               })}
               type="text"
               placeholder="Username"
-              marginBottom={5}
+              mb={5}
             />
             {errors.userName && <Text pb={5}>{errors.userName.message}</Text>}
           </FormControl>
@@ -138,8 +136,8 @@ function EditProfile() {
                     message: "Password must be at least 5 charachters!",
                   },
                   maxLength: {
-                    value: 10,
-                    message: "Password must not exceed 10 characters!",
+                    value: 20,
+                    message: "Password must not exceed 20 characters!",
                   },
                 })}
                 type={showPassword ? "text" : "password"}
@@ -160,12 +158,7 @@ function EditProfile() {
             </InputGroup>
             {errors.password && <Text pb={5}>{errors.password.message}</Text>}
           </FormControl>
-          <Button
-            colorScheme="blue"
-            type="submit"
-            //  disabled={isInvalid}
-            marginBottom={5}
-          >
+          <Button colorScheme="blue" type="submit" mb={5}>
             Edit
           </Button>
         </form>
