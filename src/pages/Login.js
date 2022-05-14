@@ -38,19 +38,19 @@ function Login() {
   };
 
   return (
-    <Grid templateColumns="repeat(2, 1fr)" marginTop={20}>
+    <Grid templateColumns="repeat(2, 1fr)" mt={20}>
       <Flex justifyContent="center">
         <Box boxSize="sm">
-          <Image src="/images/instagram-login.jpg" alt="" borderRadius={5} />
+          <Image src="/images/instagram-login.jpg" alt="" br={5} />
         </Box>
       </Flex>
       <form method="POST" onSubmit={handleSubmit(onSubmit)}>
         <Stack
           maxWidth={400}
-          margin="auto"
+          m="auto"
           spacing={5}
-          marginTop={5}
-          marginStart={10}
+          mt={5}
+          ms={10}
           alignItems="center"
         >
           <Text as="i" fontSize={60}>
@@ -63,9 +63,9 @@ function Login() {
               {...register("email", {
                 required: "Email is required!",
               })}
-              marginTop={10}
+              mt={10}
             />
-            {errors.email && <p>{errors.email.message}</p>}
+            {errors.email && <Text pb={5}>{errors.email.message}</Text>}
           </FormControl>
           <FormControl>
             <InputGroup>
@@ -80,8 +80,8 @@ function Login() {
                     message: "Password must be at least 5 charachters!",
                   },
                   maxLength: {
-                    value: 10,
-                    message: "Password must not exceed 10 characters!",
+                    value: 20,
+                    message: "Password must not exceed 20 characters!",
                   },
                 })}
               />
@@ -97,7 +97,7 @@ function Login() {
                 </Button>
               </InputRightElement>
             </InputGroup>
-            {errors.password && <p>{errors.password.message}</p>}
+            {errors.password && <Text pb={5}>{errors.password.message}</Text>}
           </FormControl>
 
           <Button
@@ -108,11 +108,10 @@ function Login() {
           >
             Log In
           </Button>
-
           <Flex>
             <Text>Don't have an account?</Text>
             <NavLink to="/signup">
-              <Text color="#3182ce" fontWeight="bold" paddingLeft={4}>
+              <Text color="#3182ce" fW="bold" pl={4}>
                 Sign up
               </Text>
             </NavLink>
