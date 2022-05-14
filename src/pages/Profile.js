@@ -2,8 +2,9 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { SimpleGrid, Text, Flex, Image, Button } from "@chakra-ui/react";
-import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
-import jwtDecode from "jwt-decode";
+import { DeleteIcon } from "@chakra-ui/icons";
+
+import ModalEditPost from "../components/ModalEditPost";
 import { getUser } from "../actions/users";
 import { getPosts, deletePost } from "../actions/posts";
 import FormatUtils from "../utils/FormatUtils";
@@ -12,12 +13,12 @@ function Profile() {
   const user = useSelector((state) => state.reducerUsers.user);
   const posts = useSelector((state) => state.reducerPosts.posts);
   const dispatch = useDispatch();
-  const token = jwtDecode(localStorage.getItem("token"));
+  const token = FormatUtils.formatToken();
 
   useEffect(() => {
-    dispatch(getUser(token.id));
+    dispatch(getUser(token));
     dispatch(getPosts());
-  }, [token.id, dispatch]);
+  }, [token, dispatch]);
 
   return (
     <>
@@ -45,7 +46,7 @@ function Profile() {
           {posts?.map((post, index) => {
             return (
               <>
-                {post.userId === token.id ? (
+                {post.userId === token ? (
                   <Flex flexDirection="column" key={index}>
                     <Image height="350px" widht="300px" src={post.url} />
                     <Flex justifyContent="space-between">
@@ -59,7 +60,7 @@ function Profile() {
                         </Text>
                       </Flex>
                       <Button mt={3} mr={1} ml={1} p={2}>
-                        <EditIcon />
+                        <ModalEditPost id={post.id} />
                       </Button>
                       <Button
                         mt={3}
