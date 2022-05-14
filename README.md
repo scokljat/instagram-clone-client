@@ -5,7 +5,7 @@
 ![Chakra](https://img.shields.io/badge/Chakra--UI-319795?style=for-the-badge&logo=chakra-ui&logoColor=white)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
-![instagram-clone](images/instagram-clone.png)
+![instagram-clone](public/images/instagram-clone.png)
 
 .env
 
