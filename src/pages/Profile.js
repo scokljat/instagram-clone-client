@@ -13,12 +13,12 @@ function Profile() {
   const user = useSelector((state) => state.reducerUsers.user);
   const posts = useSelector((state) => state.reducerPosts.posts);
   const dispatch = useDispatch();
-  const token = FormatUtils.formatToken();
+  const userId = FormatUtils.formatToken();
 
   useEffect(() => {
-    dispatch(getUser(token));
+    dispatch(getUser(userId));
     dispatch(getPosts());
-  }, [token, dispatch]);
+  }, [userId, dispatch]);
 
   return (
     <>
@@ -46,7 +46,7 @@ function Profile() {
           {posts?.map((post, index) => {
             return (
               <>
-                {post.userId === token ? (
+                {post.userId === userId ? (
                   <Flex flexDirection="column" key={index}>
                     <Image height="350px" widht="300px" src={post.url} />
                     <Flex justifyContent="space-between">
