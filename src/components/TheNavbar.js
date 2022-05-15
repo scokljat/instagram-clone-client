@@ -9,11 +9,11 @@ function TheNavbar() {
     <Flex justifyContent="center">
       <List>
         <Flex>
-          <ListItem paddingRight={10}>
+          <ListItem pr={10}>
             <ModalCreatePost />
           </ListItem>
 
-          <ListItem paddingRight={10}>
+          <ListItem pr={10}>
             <NavLink to="/profile">
               <FiUser size={30} />
             </NavLink>
