@@ -2,6 +2,7 @@ import {
   FETCH_POSTS,
   CREATE_POST,
   DELETE_POST,
+  UPDATE_POST,
 } from "../constants/actionTypes";
 
 const initialState = {
@@ -19,6 +20,10 @@ export const reducerPosts = (state = initialState, { type, payload }) => {
         ...state,
         posts: state.posts.filter((post) => post.id !== payload),
       };
+    case UPDATE_POST:
+      state.posts = state.posts.filter((post) => post.id !== payload.id);
+      return { ...state, posts: [payload, ...state.posts] };
+
     default:
       return state;
   }
