@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import {
   FormControl,
   Button,
@@ -18,7 +17,7 @@ import { registerUser } from "../actions/auth";
 function Signup() {
   const [showPassword, setShowPassword] = useState(false);
   const users = useSelector((state) => state);
-  const nav = useNavigate();
+  let navigate = useNavigate();
 
   const dispatch = useDispatch();
 
@@ -38,7 +37,7 @@ function Signup() {
 
   const onSubmit = (values) => {
     dispatch(registerUser(values));
-    if (users.authReducer.isLoggedIn) nav("/profile");
+    if (users.authReducer.isLoggedIn) navigate("/profile");
   };
 
   return (

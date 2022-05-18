@@ -1,7 +1,8 @@
 import { useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
-import { NavLink } from "react-router-dom";
+
 import {
   Stack,
   Button,
@@ -20,9 +21,12 @@ import { login } from "../actions/auth";
 
 function Login() {
   const [showPassword, setShowPassword] = useState(false);
+
   const users = useSelector((state) => state);
 
   const dispatch = useDispatch();
+  let navigate = useNavigate();
+
   const {
     handleSubmit,
     register,
@@ -34,7 +38,7 @@ function Login() {
 
   const onSubmit = (values) => {
     dispatch(login(values));
-    console.log(users.authReducer.userId);
+    if (users.authReducer.isLoggedIn === true) navigate("/home");
   };
 
   return (
