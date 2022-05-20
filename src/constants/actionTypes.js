@@ -9,3 +9,5 @@ export const DELETE_POST = "DELETE_POST";
 export const UPDATE_POST = "UPDATE_POST";
 export const FETCH_LIKES = "FETCH_LIKES";
 export const LIKE_POST = "LIKE_POST";
+export const SET_ALERT = "SET_ALERT";
+export const HIDE_ALERT = "HIDE_ALERT";

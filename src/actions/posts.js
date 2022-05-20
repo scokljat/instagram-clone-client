@@ -4,43 +4,78 @@ import {
   FETCH_POSTS,
   DELETE_POST,
   UPDATE_POST,
+  SET_ALERT,
 } from "../constants/actionTypes";
 
 export const getPosts = () => async (dispatch) => {
   try {
-    const { data } = await api.getPosts();
-    dispatch({ type: FETCH_POSTS, payload: data });
+    const response = await api.getPosts();
+
+    dispatch({ type: FETCH_POSTS, payload: response.data });
   } catch (error) {
-    console.log(error);
+    dispatch({
+      type: SET_ALERT,
+      payload: "Error occurred while fetching all posts",
+    });
   }
 };
 
 export const createPost = (post) => async (dispatch) => {
   try {
-    const { data } = await api.createPost(post);
-    console.log(data);
-    dispatch({ type: CREATE_POST, payload: data });
+    const response = await api.createPost(post);
+
+    dispatch({ type: CREATE_POST, payload: response.data });
+
+    if (response.status === 200) {
+      dispatch({
+        type: SET_ALERT,
+        payload: "Post has been successfully created",
+      });
+    }
   } catch (error) {
-    console.log(error);
+    dispatch({
+      type: SET_ALERT,
+      payload: "Error occurred while creating the post",
+    });
   }
 };
 
 export const deletePost = (id) => async (dispatch) => {
   try {
-    await api.deletePost(id);
+    const response = await api.deletePost(id);
 
     dispatch({ type: DELETE_POST, payload: id });
+
+    if (response.status === 200) {
+      dispatch({
+        type: SET_ALERT,
+        payload: "Post has been successfully deleted",
+      });
+    }
   } catch (error) {
-    console.log(error);
+    dispatch({
+      type: SET_ALERT,
+      payload: "Error occurred while deleting the post",
+    });
   }
 };
 
 export const updatePost = (post, id) => async (dispatch) => {
   try {
-    const { data } = await api.updatePost(post, id);
-    console.log(data);
-    dispatch({ type: UPDATE_POST, payload: data });
+    const response = await api.updatePost(post, id);
+
+    dispatch({ type: UPDATE_POST, payload: response.data });
+
+    if (response.status === 200) {
+      dispatch({
+        type: SET_ALERT,
+        payload: "Post has been successfully edited",
+      });
+    }
   } catch (error) {
-    console.log(error);
+    dispatch({
+      type: SET_ALERT,
+      payload: "Error occurred while editing the post",
+    });
   }
 };

@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   ChakraProvider,
@@ -15,49 +15,52 @@ import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import { logout } from "./actions/auth";
 import EditProfile from "./pages/EditProfile";
+import AppAlert from "./components/AppAlert";
+import { SET_ALERT } from "./constants/actionTypes";
 
 function App() {
   const dispatch = useDispatch();
+  let navigate = useNavigate();
   const users = useSelector((state) => state);
-
-  console.log(users.authReducer.isLoggedIn);
 
   const handleLogout = () => {
     dispatch(logout);
-    console.log(users.authReducer.isLoggedIn);
+    users.authReducer.isLoggedIn = false;
+    navigate("/");
+    dispatch({ type: SET_ALERT, payload: "You are successfully logged out" });
   };
+
   return (
     <ChakraProvider>
-      <BrowserRouter>
-        <header>
-          <Flex justifyContent="space-between">
-            <ColorModeScript initialColorMode="light" />
-            <ThemeSwitcher />
-            {users.authReducer.isLoggedIn ? (
-              <Button onClick={handleLogout} margin={5}>
-                Logout
-              </Button>
-            ) : (
-              " "
-            )}
-          </Flex>
-          {users.authReducer.isLoggedIn ? <TheNavbar /> : " "}
-        </header>
-        <main>
-          <Routes>
-            {users.authReducer.isLoggedIn ? (
-              <Route path="/" element={<Home />} />
-            ) : (
-              <Route exact path="/" element={<Login />} />
-            )}
-
-            <Route path="/signup" element={<Signup />} />
-
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/edit-profile" element={<EditProfile />} />
-          </Routes>
-        </main>
-      </BrowserRouter>
+      <header>
+        <Flex justifyContent="space-between">
+          <ColorModeScript initialColorMode="light" />
+          <ThemeSwitcher />
+          {users.authReducer.isLoggedIn ? (
+            <Button onClick={handleLogout} margin={5}>
+              Logout
+            </Button>
+          ) : (
+            " "
+          )}
+        </Flex>
+        {users.authReducer.isLoggedIn ? <TheNavbar /> : " "}
+        <AppAlert />
+      </header>
+      <main>
+        <Routes>
+          {users.authReducer.isLoggedIn ? (
+            <Route path="/home" element={<Home />} />
+          ) : (
+            <Route exact path="/" element={<Login />} />
+          )}
+          <Route exact path="/" element={<Login />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/edit-profile" element={<EditProfile />} />
+        </Routes>
+      </main>
     </ChakraProvider>
   );
 }
