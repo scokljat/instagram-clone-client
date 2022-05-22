@@ -1,26 +1,22 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Flex, Text, Image } from "@chakra-ui/react";
 import { FaRegHeart } from "react-icons/fa";
-import jwtDecode from "jwt-decode";
+
 import { getPosts } from "../actions/posts";
+import { likePost } from "../actions/likes";
 import FormatUtils from "../utils/FormatUtils";
-import { likePost, getLikes } from "../actions/likes";
 
 function Home() {
   const posts = useSelector((state) => state.reducerPosts.posts);
-  const likes = useSelector((state) => state.reducerLikes.likes);
-  const newArray = useSelector((state) => state.reducerLikes.newArray);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getPosts());
-    dispatch(getLikes());
   }, [dispatch]);
 
-  const token = jwtDecode(localStorage.getItem("token"));
-
+  console.log(posts);
   return (
     <>
       {posts.map((post, index) => {
@@ -36,12 +32,21 @@ function Home() {
                   "HH:mm  'h' dd MMM yyyy"
                 )}
               </Text>
-              <FaRegHeart
-                fontSize={20}
-                onClick={() => {
-                  dispatch(likePost({ postId: post.id, userId: token.id }));
-                }}
-              />
+              <Flex>
+                <FaRegHeart
+                  cursor="pointer"
+                  fontSize={20}
+                  onClick={() => {
+                    dispatch(
+                      likePost({
+                        postId: post.id,
+                        userId: FormatUtils.formatToken(),
+                      })
+                    );
+                  }}
+                />
+                <Text ml={5}>{post.likes.length} likes</Text>
+              </Flex>
             </Flex>
           </Flex>
         );

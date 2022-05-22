@@ -3,6 +3,7 @@ import {
   CREATE_POST,
   DELETE_POST,
   UPDATE_POST,
+  LIKE_POST,
 } from "../constants/actionTypes";
 
 const initialState = {
@@ -23,6 +24,17 @@ export const reducerPosts = (state = initialState, { type, payload }) => {
     case UPDATE_POST:
       state.posts = state.posts.filter((post) => post.id !== payload.id);
       return { ...state, posts: [payload, ...state.posts] };
+
+    case LIKE_POST: {
+      return {
+        ...state,
+        posts: state.posts.map((post) => {
+          return post.id === payload.id
+            ? (post[post.id] = payload)
+            : (post[post.id] = post);
+        }),
+      };
+    }
 
     default:
       return state;
