@@ -1,6 +1,6 @@
 import * as api from "../api/api";
 import jwtDecode from "jwt-decode";
-import { LOGIN, REGISTER, SET_ALERT } from "../constants/actionTypes";
+import { LOGIN, REGISTER, SET_ALERT, LOGOUT } from "../constants/actionTypes";
 
 export const registerUser = (user) => async (dispatch) => {
   try {
@@ -43,6 +43,6 @@ export const login = (user) => async (dispatch) => {
   }
 };
 
-export const logout = () => (dispatch) => {
-  localStorage.removeItem("token");
+export const logout = (dispatch) => {
+  dispatch({ type: LOGOUT });
 };

@@ -1,5 +1,4 @@
 import { REGISTER, LOGIN, LOGOUT } from "../constants/actionTypes";
-import jwtDecode from "jwt-decode";
 
 const initialState = {
   isLoggedIn: Boolean(localStorage.getItem("token")),
@@ -12,8 +11,7 @@ export const authReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         isLoggedIn: true,
-        users: payload,
-        userId: jwtDecode(payload),
+        userId: payload.decoded,
       };
     case LOGIN:
       return {
@@ -21,11 +19,11 @@ export const authReducer = (state = initialState, { type, payload }) => {
         isLoggedIn: true,
         userId: payload.decoded,
       };
-    // case LOGOUT:
-    //   return {
-    //     ...state,
-    //     isLoggedIn: false,
-    //   };
+    case LOGOUT:
+      return {
+        ...state,
+        isLoggedIn: false,
+      };
     default:
       return state;
   }
