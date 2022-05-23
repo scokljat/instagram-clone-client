@@ -13,6 +13,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
+import Error from "./pages/Error";
 import { logout } from "./actions/auth";
 import EditProfile from "./pages/EditProfile";
 import AppAlert from "./components/AppAlert";
@@ -24,8 +25,8 @@ function App() {
   const users = useSelector((state) => state);
 
   const handleLogout = () => {
+    localStorage.removeItem("token");
     dispatch(logout);
-    users.authReducer.isLoggedIn = false;
     navigate("/");
     dispatch({ type: SET_ALERT, payload: "You are successfully logged out" });
   };
@@ -59,6 +60,7 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/edit-profile" element={<EditProfile />} />
+          <Route path="*" element={<Error />} />
         </Routes>
       </main>
     </ChakraProvider>
