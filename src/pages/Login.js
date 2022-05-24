@@ -22,7 +22,7 @@ import { login } from "../actions/auth";
 function Login() {
   const [showPassword, setShowPassword] = useState(false);
 
-  const users = useSelector((state) => state);
+  const isLoggedIn = useSelector((state) => state.authReducer.isLoggedIn);
 
   const dispatch = useDispatch();
   let navigate = useNavigate();
@@ -38,8 +38,9 @@ function Login() {
 
   const onSubmit = (values) => {
     dispatch(login(values));
-    if (users.authReducer.isLoggedIn === true) navigate("/home");
   };
+
+  if (isLoggedIn) navigate("/home");
 
   return (
     <Grid templateColumns="repeat(2, 1fr)" mt={20}>

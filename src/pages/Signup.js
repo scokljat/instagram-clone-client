@@ -16,7 +16,7 @@ import { registerUser } from "../actions/auth";
 
 function Signup() {
   const [showPassword, setShowPassword] = useState(false);
-  const users = useSelector((state) => state);
+  const isLoggedIn = useSelector((state) => state.authReducer.isLoggedIn);
   let navigate = useNavigate();
 
   const dispatch = useDispatch();
@@ -37,8 +37,9 @@ function Signup() {
 
   const onSubmit = (values) => {
     dispatch(registerUser(values));
-    if (users.authReducer.isLoggedIn) navigate("/profile");
   };
+
+  if (isLoggedIn) navigate("/profile");
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
