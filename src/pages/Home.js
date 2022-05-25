@@ -4,7 +4,7 @@ import { Flex, Text, Image } from "@chakra-ui/react";
 import { FaRegHeart } from "react-icons/fa";
 
 import { getPosts } from "../actions/posts";
-import { likePost } from "../actions/likes";
+import { likePost, dislikePost } from "../actions/likes";
 import FormatUtils from "../utils/FormatUtils";
 
 function Home() {
@@ -16,7 +16,6 @@ function Home() {
     dispatch(getPosts());
   }, [dispatch]);
 
-  console.log(posts);
   return (
     <>
       {posts.map((post, index) => {
@@ -37,12 +36,30 @@ function Home() {
                   cursor="pointer"
                   fontSize={20}
                   onClick={() => {
-                    dispatch(
-                      likePost({
-                        postId: post.id,
-                        userId: FormatUtils.formatToken(),
-                      })
-                    );
+                    let currentUserId = 0;
+                    const arrayOfUserId = post.likes.map((item) => {
+                      if (item.userId === FormatUtils.formatToken()) {
+                        currentUserId = item.userId;
+                        return item.userId;
+                      }
+                      return null;
+                    });
+
+                    if (arrayOfUserId.includes(currentUserId) !== true) {
+                      dispatch(
+                        likePost({
+                          postId: post.id,
+                          userId: FormatUtils.formatToken(),
+                        })
+                      );
+                    } else {
+                      dispatch(
+                        dislikePost({
+                          postId: post.id,
+                          userId: FormatUtils.formatToken(),
+                        })
+                      );
+                    }
                   }}
                 />
                 <Text ml={5}>{post.likes.length} likes</Text>
