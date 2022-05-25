@@ -14,15 +14,15 @@ import Signup from "./pages/Signup";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import Error from "./pages/Error";
-import { logout } from "./actions/auth";
 import EditProfile from "./pages/EditProfile";
 import AppAlert from "./components/AppAlert";
+import { logout } from "./actions/auth";
 import { SET_ALERT } from "./constants/actionTypes";
 
 function App() {
   const dispatch = useDispatch();
   let navigate = useNavigate();
-  const users = useSelector((state) => state);
+  const isLoggedIn = useSelector((state) => state.authReducer.isLoggedIn);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -37,7 +37,7 @@ function App() {
         <Flex justifyContent="space-between">
           <ColorModeScript initialColorMode="light" />
           <ThemeSwitcher />
-          {users.authReducer.isLoggedIn ? (
+          {isLoggedIn ? (
             <Button onClick={handleLogout} margin={5}>
               Logout
             </Button>
@@ -45,16 +45,11 @@ function App() {
             " "
           )}
         </Flex>
-        {users.authReducer.isLoggedIn ? <TheNavbar /> : " "}
+        {isLoggedIn ? <TheNavbar /> : " "}
         <AppAlert />
       </header>
       <main>
         <Routes>
-          {users.authReducer.isLoggedIn ? (
-            <Route path="/home" element={<Home />} />
-          ) : (
-            <Route exact path="/" element={<Login />} />
-          )}
           <Route exact path="/" element={<Login />} />
           <Route path="/home" element={<Home />} />
           <Route path="/signup" element={<Signup />} />
