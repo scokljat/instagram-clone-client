@@ -14,6 +14,7 @@ export const registerUser = (user) => async (dispatch) => {
       type: REGISTER,
       payload: { data: response.data, decoded: decoded.id },
     });
+
     if (response.status === 200) {
       dispatch({ type: SET_ALERT, payload: "You are successfully signed up" });
     }

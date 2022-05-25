@@ -1,7 +1,7 @@
 import { REGISTER, LOGIN, LOGOUT } from "../constants/actionTypes";
 
 const initialState = {
-  isLoggedIn: Boolean(localStorage.getItem("token")),
+  isLoggedIn: false,
   userId: null,
 };
 
