@@ -28,7 +28,12 @@ function ModalEditPost(props) {
     handleSubmit,
     register,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      description: props.description,
+      url: props.url,
+    },
+  });
 
   const onSubmit = (values) => {
     const updatedPost = {

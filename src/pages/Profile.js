@@ -61,7 +61,11 @@ function Profile() {
                         </Text>
                       </Flex>
                       <Button mt={3} mr={1} ml={1} p={2}>
-                        <ModalEditPost id={post.id} />
+                        <ModalEditPost
+                          id={post.id}
+                          description={post.description}
+                          url={post.url}
+                        />
                       </Button>
                       <Button
                         mt={3}
