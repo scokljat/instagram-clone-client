@@ -21,7 +21,7 @@ function TheNavbar() {
 
           <ListItem>
             {" "}
-            <NavLink to="/">
+            <NavLink to="/home">
               <FiHome size={30} />
             </NavLink>
           </ListItem>

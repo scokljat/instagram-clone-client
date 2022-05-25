@@ -12,6 +12,7 @@ import FormatUtils from "../utils/FormatUtils";
 function Profile() {
   const user = useSelector((state) => state.reducerUsers.user);
   const posts = useSelector((state) => state.reducerPosts.posts);
+
   const dispatch = useDispatch();
   const userId = FormatUtils.formatToken();
 
@@ -65,8 +66,9 @@ function Profile() {
                       <Button
                         mt={3}
                         p={2}
+                        type="submit"
                         onClick={() => {
-                          dispatch(deletePost(post.id));
+                          dispatch(deletePost({ postId: post.id }));
                         }}
                       >
                         <DeleteIcon fontSize={20} />

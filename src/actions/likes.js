@@ -10,3 +10,13 @@ export const likePost = (like) => async (dispatch) => {
     console.log(error);
   }
 };
+
+export const dislikePost = (dislike) => async (dispatch) => {
+  try {
+    const { data } = await api.dislikePost(dislike);
+
+    dispatch({ type: LIKE_POST, payload: data });
+  } catch (error) {
+    console.log(error);
+  }
+};

@@ -1,5 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { Flex, Alert } from "@chakra-ui/react";
+
 import { HIDE_ALERT } from "../constants/actionTypes";
 
 function AppAlert() {

@@ -44,7 +44,7 @@ function ModalCreatePost() {
 
   return (
     <>
-      <FiPlus size={30} onClick={onOpen} />
+      <FiPlus cursor="pointer" size={30} onClick={onOpen} />
       <Modal isOpen={isOpen} onClose={onClose} background="#F9F3EE">
         <ModalOverlay />
         <ModalContent>
